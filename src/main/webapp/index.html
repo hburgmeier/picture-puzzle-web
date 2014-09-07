@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/style.css" type="text/css" rel="stylesheet">
+<title>Guess the Situation</title>
+<script src="./js/lib/jquery-2.1.1.min.js"></script>
+<script src="./js/lib/handlebars.min.js"></script>
+<script src="./js/picture-utils.js"></script>
+<script src="./js/boxes.js"></script>
+<script src="./js/spotlight.js"></script>
+<script src="./js/blur.js"></script>
+<script src="./js/model.js"></script>
+<script src="./js/controller.js"></script>
+<script src="./js/view.js"></script>
+<script id="endGame-template" type="text/x-handlebars-template">
+	<div class="endScreen"><p class="stat">
+	Das Spiel ist vorbei. Ihr habt {{points}} Punkte erzielt.
+	</p>
+	<a id="restartBtn" class="button">Nochmal!</a>
+	</div>
+</script>
+<script id="score-template" type="text/x-handlebars-template">
+	<div class="scoreMessage" id="scoreMessage"><span class="scoreText">
+	Richtig: +{{lastScore}} Punkte
+	</span>
+	</div>
+</script>
+<script id="header-template" type="text/x-handlebars-template">
+    <div style="display:table-row">
+        <div class="timer" style="display:table-cell;width:300px;text-align:left">
+		{{#if lastRound}} 
+		Letzte Runde!
+		{{else}}
+		{{toDo}}. Runde
+		{{/if}}
+		</div>
+		<div id="timeMessage" class="timer" style="display:table-cell;width:300px">Verbleibende Zeit: {{currentTime}}</div>
+		<div class="timer" style="display:table-cell;width:300px;text-align:right">Punkte: {{points}}</div>
+	</div>
+</script>
+
+</head>
+<body>
+
+
+    <div id="main">
+		<div id="header"></div>
+		<div id="puzzle">
+			<div class="startScreen">
+				<a id="startBtn" class="button">Los geht's!</a>
+			</div>
+		</div>
+		<div id="footer">
+			<a id="successBtn" class="button">Richtig!</a>
+			<a id="skipBtn" class="button">Weiter!</a>
+			<a id="nextBtn" class="button middleBtn">Nächstes Rätsel</a>
+		</div>
+	</div>
+
+<script>
+jQuery( document ).ready(function( $ ) {
+	var model = new gameModel();
+	
+	model.addPictureRound('./pic/racoon.jpg', boxes, 25, { size: 6 });
+	
+	var view = new gameView("main", model, '900px', '500px');
+	var controller = new gameController(model, view);
+});
+		
+</script>
+</body>
+</html>

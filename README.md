@@ -1,4 +1,4 @@
 picture-puzzle-web
 ==================
 
-Javascript library for a picture puttle
+Javascript library for a picture puzzle
